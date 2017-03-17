@@ -1,6 +1,6 @@
 {
-  "name": "rest-crud",
-  "description": "REST CRUD Example Node.js & Mysql",
+  "name": "projectday-server",
+  "description": "REST CRUD Example Node.js",
   "version": "0.0.1",
   "private": true,
   "main": "server.js",
@@ -12,5 +12,10 @@
     "express-myconnection": "*",
     "express-validator": "^2.6.0",
     "mysql": "*"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
 }

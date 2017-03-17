@@ -1,26 +1,48 @@
+//
+// Without this we couldn't start the app with node server/server.js as node-config requires config directory where we initially start the server.
+//
+process.env.NODE_CONFIG_DIR = __dirname+'/config';
+
+
 var express  = require('express'),
     path     = require('path'),
     bodyParser = require('body-parser'),
     app = express(),
-    expressValidator = require('express-validator');
+    expressValidator = require('express-validator'),
+    config = require('config');
 
 
-/*Set EJS template Engine*/
-app.set('views','./views');
-app.set('view engine','ejs');
+/**
+ * Do not do this in production
+ *
+ * @param req
+ * @param res
+ * @param next
+ */
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
 
-app.use(express.static(path.join(__dirname, 'public')));
+    if ('OPTIONS' == req.method) {
+        res.send(200);
+    }
+    else {
+        next();
+    }
+};
+
+app.use(allowCrossDomain);
 app.use(bodyParser.urlencoded({ extended: true })); //support x-www-form-urlencoded
 app.use(bodyParser.json());
 app.use(expressValidator());
 
-/*MySql connection*/
+
 var connection  = require('express-myconnection'),
     mysql = require('mysql');
 
 app.use(
-
-    connection(mysql,{
+    connection(mysql,config.get('database') || {
         host     : 'localhost',
         user     : 'root',
         password : '',
@@ -52,7 +74,7 @@ router.use(function(req, res, next) {
 });
 
 var curut = router.route('/user');
-
+var config = require('config');
 
 //show the CRUD interface | GET
 curut.get(function(req,res,next){
@@ -68,9 +90,7 @@ curut.get(function(req,res,next){
                 console.log(err);
                 return next("Mysql error, check your query");
             }
-
-            res.render('user',{title:"RESTful Crud Example",data:rows});
-
+            res.send(rows);
          });
 
     });
@@ -154,7 +174,7 @@ curut2.get(function(req,res,next){
             if(rows.length < 1)
                 return res.send("User Not found");
 
-            res.render('edit',{title:"Edit user",data:rows});
+            res.send(rows);
         });
 
     });

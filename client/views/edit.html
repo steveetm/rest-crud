@@ -2,20 +2,20 @@
 <html>
     <head>
         <title><%=title%></title>
-        <script type="text/javascript" src="/../js/jquery-1.10.2.min.js"></script>
-        <link rel="stylesheet" href="/../css/style.css">
+        <script type="text/javascript" src="../public/js/jquery-1.10.2.min.js"></script>
+        <link rel="stylesheet" href="../public/css/style.css">
     </head>
-<body>
+<body onLoad="getUserData()">
 <form method="post" action="" id="the-form">
     <table cellpadding="11">
     <tr>
-        <td class="label">Name</td><td>: <input type="text" name="name" value="<%=data[0].name%>"></td>
+        <td class="label">Name</td><td>: <input type="text" name="name" value=""></td>
      </tr>
     <tr>
-        <td class="label">Email</td><td>: <input type="text" name="email" value="<%=data[0].email%>"></td>
+        <td class="label">Email</td><td>: <input type="text" name="email" value=""></td>
      </tr>
       <tr>
-        <td class="label">Password</td><td>: <input type="password" name="password" value="<%=data[0].password%>"></td>
+        <td class="label">Password</td><td>: <input type="password" name="password" value=""></td>
      </tr>
      <tr>
         <td class="label"></td>
@@ -26,34 +26,80 @@
     </table>
 </form>
  <script>
-    
+
+        function getUserData() {
+            var userId = window.location.href.split("?")[1];
+
+            if (!userId) {
+                alert('Missing userID!');
+                return;
+            }
+
+            $.ajax({
+
+                url: "http://127.0.0.1:3000/api/user/"+userId,
+                type: "get",
+                success: function (res) {
+                    if (!res) {
+                        alert('User not found!');
+                    } else {
+                        var user = res[0];
+                        $("form  input[name='name']").val(user['name']);
+                        $("form  input[name='email']").val(user['email']);
+                        $("form  input[name='password']").val(user['password']);
+                    }
+                    return false;
+
+
+                },
+
+                error: function (xhr, status, error) {
+
+                    console.log(xhr.responseText);
+                    var err = '';
+                    $.each(JSON.parse(xhr.responseText), function (i, item) {
+
+                        err += '<li>' + item.msg + '</li>';
+                    });
+                    $(".err-area").html(err);
+                    return false;
+                }
+
+            });
+        }
+
         function saveUser(){
-           
+            var userId = window.location.href.split("?")[1];
+
+            if (!userId) {
+                alert('Missing userID!');
+                return;
+            }
            $.ajax({
-            
-            url:"/api/user/"+<%=data[0].user_id%>,
+
+            url:"http://127.0.0.1:3000/api/user/"+userId,
             type:"put",
             data:$("#the-form").serialize(),
             success:function(res){
-                
-                window.location.href = '/api/user';
+
+                window.location.href = 'user.html';
                 return false;
             },
             error:function(xhr, status, error){
-                
+
                 console.log(xhr.responseText);
                 var err = '';
                 $.each(JSON.parse(xhr.responseText) , function(i, item) {
-                   
+
                      err +='<li>'+item.msg+'</li>';
                 });
-                $(".err-area").html(err);    
+                $(".err-area").html(err);
                 return false;
             }
-            
+
            });
         }
-    
+
     </script>
 </body>
 </html>

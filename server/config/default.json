@@ -1,0 +1,13 @@
+{
+  // Customer module configs
+  "database": {
+    host     : 'localhost',
+    user     : 'root',
+    password : '',
+    database : 'test',
+    debug    : false
+  },
+  "server" : {
+    "url" : "http://127.0.0.1:3000"
+  }
+}
