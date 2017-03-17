@@ -1,18 +1,19 @@
-This is an example of RESTful CRUD in Node.js n mySQL.
-
-Installation,Live DEMO, and tutorial here : http://teknosains.com/i/simple-crud-nodejs-mysql
+NodeJS, Express, MySQL example
 
 ## Installation
-*for newbies : Clone or download zip to your machine then hit this :
 
-    cd rest-crud
+* Install NodeJS 6 LTS
+* Install a MySQL server
+* Install a minimal webserver(lighttpd, ngninx)
 
-then
-
+    
+    cd server
     npm install
+    
 
 ## Configuration (database)
-server.js
+
+Adjust for your needs: `server/config/default.json`
 
         host: 'localhost',
         user: 'root',
@@ -20,10 +21,17 @@ server.js
         port : 3306, //port mysql
         database:'test'	
 
-
 	
 You're gonna need to create a DB named 'test' or whatever you name it,  import t_user.sql
 
 
+## Webserver
+
+Set your webserver's root to `client` directory
+
 ## Open your Browser
-And type: localhost:3000/api/user
+
+Navigate to your webserver's address and open `user.html`
+
+
+
