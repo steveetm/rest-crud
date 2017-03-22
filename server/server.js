@@ -2,16 +2,14 @@
 // Without this we couldn't start the app with node server/server.js as node-config requires config directory where we initially start the server.
 //
 process.env.NODE_CONFIG_DIR = __dirname+'/config';
-
-
+// uiafsdugf
 var express  = require('express'),
     path     = require('path'),
     bodyParser = require('body-parser'),
     app = express(),
     expressValidator = require('express-validator'),
     config = require('config');
-
-
+//sfagsdgagdsagdgfdshsdfagdfgsdagdsagdg
 /**
  * Do not do this in production
  *

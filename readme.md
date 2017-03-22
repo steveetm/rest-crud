@@ -13,6 +13,7 @@ NodeJS, Express, MySQL example
 
 ## Configuration (database)
 
+
 Adjust for your needs: `server/config/default.json`
 
         host: 'localhost',

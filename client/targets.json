@@ -1,0 +1,11 @@
+{ 
+	"dev": {
+		"api_location": "http://127.0.0.1:3001"
+	},
+	"stage":{
+		"api_location": "http://nodetest0:3000:3001"
+	},
+	"live": {
+		"api_location": "http://docker-dev:3080"
+	}
+}

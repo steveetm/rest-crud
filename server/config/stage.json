@@ -1,0 +1,13 @@
+{
+  // Customer module configs
+  "database": {
+    host     : 'mari0.l6.a331.hu',
+    user     : 'nodeuser',
+    password : 'nodenode',
+    database : 'nodetest',
+    debug    : false
+  },
+  "server" : {
+    "url" : "http://nodetest0:3000"
+  }
+}
