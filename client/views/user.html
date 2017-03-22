@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%=title%></title>
+    <title>@@title</title>
     <script type="text/javascript" src="../public/js/jquery-1.10.2.min.js"></script>
     <link rel="stylesheet" href="../public/css/style.css">
 </head>
@@ -60,7 +60,7 @@
 
         $.ajax({
 
-            url: "http://127.0.0.1:3000/api/user",
+            url: "@@api_location/api/user",
             type: "get",
             success: function (res) {
                 var inlineData = "";
@@ -105,7 +105,7 @@
 
         $.ajax({
 
-            url: "http://127.0.0.1:3000/api/user",
+            url: "@@api_location/api/user",
             type: "post",
             data: $("#the-form").serialize(),
             success: function (res) {
@@ -131,7 +131,7 @@
     function deleteUser(user_id) {
 
         $.ajax({
-            url: "http://127.0.0.1:3000/api/user/" + user_id,
+            url: "@@api_location/api/user/" + user_id,
             type: 'DELETE',
             success: function (res) {
 

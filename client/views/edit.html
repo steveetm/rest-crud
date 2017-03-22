@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><%=title%></title>
+        <title>@@title</title>
         <script type="text/javascript" src="../public/js/jquery-1.10.2.min.js"></script>
         <link rel="stylesheet" href="../public/css/style.css">
     </head>
@@ -37,7 +37,7 @@
 
             $.ajax({
 
-                url: "http://127.0.0.1:3000/api/user/"+userId,
+                url: "@@api_location/api/user/"+userId,
                 type: "get",
                 success: function (res) {
                     if (!res) {
@@ -77,7 +77,7 @@
             }
            $.ajax({
 
-            url:"http://127.0.0.1:3000/api/user/"+userId,
+            url:"@@api_location/api/user/"+userId,
             type:"put",
             data:$("#the-form").serialize(),
             success:function(res){

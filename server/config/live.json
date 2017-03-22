@@ -1,0 +1,13 @@
+{
+  // Customer module configs
+  "database": {
+    host     : 'mari0.l6.a331.hu',
+    user     : 'nodeuser',
+    password : 'nodenode',
+    database : 'nodeprod',
+    debug    : false
+  },
+  "server" : {
+    "url" : "http://docker-dev:3080"
+  }
+}
