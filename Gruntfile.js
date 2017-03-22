@@ -3,10 +3,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-contrib-watch");
   grunt.loadNpmTasks("grunt-sync");
   grunt.loadNpmTasks("grunt-replace");
-  grunt.loadNpmTasks('grunt-ejs-render');
-  grunt.loadNpmTasks('grunt-ejs-static');
-  grunt.loadNpmTasks('grunt-rsync-2');
-
+  grunt.loadNpmTasks("grunt-rsync-2");
+  grunt.loadNpmTasks("grunt-contrib-clean");
 
   //var api_location;
   var api_location;
@@ -41,7 +39,6 @@ module.exports = function(grunt) {
             "!**/.*",
         ]
       };
-
 
   grunt.initConfig({
     
@@ -85,17 +82,17 @@ module.exports = function(grunt) {
             options: {
               patterns: [
                 {
-                  match: 'title',
-                  replacement: 'Hello - ' + target
+                  match: "title",
+                  replacement: "Hello - " + target
                 },
                 {
-                  match: 'api_location',
+                  match: "api_location",
                   replacement: api_location
                 }
               ]
             },
             files: [
-              {expand: true, flatten: true, src: ['client/views/*.html'], dest: 'build/' + target + "/client/views/"}
+              {expand: true, flatten: true, src: ["client/views/*.html"], dest: "build/" + target + "/client/views/"}
             ]
           }
         },
@@ -103,7 +100,7 @@ module.exports = function(grunt) {
 
     rsync: {
         deployclient: {
-          files: 'build/' + target + "/client/",
+          files: "build/" + target + "/client/",
           options: {
             host      : "nodetest0.l6",
             port      : "22",
@@ -112,7 +109,7 @@ module.exports = function(grunt) {
           }
         },
          deployserver: {
-          files: 'build/' + target + "/server/",
+          files: "build/" + target + "/server/",
           options: {
             host      : "nodetest0.l6",
             port      : "22",
@@ -121,7 +118,7 @@ module.exports = function(grunt) {
           }
         },
         transferdocker: {
-          files: 'build/' + target,
+          files: "build/" + target,
           options: {
             host      : "docker-registry.l6",
             port      : "22",
@@ -130,6 +127,11 @@ module.exports = function(grunt) {
           }
         }
       },
+
+    clean: {
+      build: ["build/"],
+      target: ["build/" + target]
+    },
 
     watch: {
       gruntfile: {
@@ -145,21 +147,21 @@ module.exports = function(grunt) {
         files: config.clientfiles,
         tasks: ["sync:client", "replace:client"],
                 options: {cwd: {
-              files: 'client',
+              files: "client",
             }}
       },
       serversync: {
         files: config.serverfiles,
         tasks: ["sync:server"],
         options: {cwd: {
-              files: 'server',
+              files: "server",
             }}
       },
       serverconfsync: {
         files: config.serverconf,
         tasks: ["sync:serverconf"],
         options: {cwd: {
-              files: 'server',
+              files: "server",
             }}
       },
       serverjshint: {
